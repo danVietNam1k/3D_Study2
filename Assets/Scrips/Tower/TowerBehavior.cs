@@ -9,11 +9,13 @@ public class TowerBehaviour : NewMonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] SphereCollider sphereCollider;
-    [SerializeField] float radius =5f;
-    [SerializeField] List<GameObject> _listEnemy = new();
+    
+    [SerializeField] List<Transform> _listEnemy = new();
+    [SerializeField] TowerCheck _thisTowerCheck;
+    public TowerCheck TowerCheck =>_thisTowerCheck;
     void Start()
     {
-        
+        LookAtNearestTarget();
     }
 
     // Update is called once per frame
@@ -21,12 +23,16 @@ public class TowerBehaviour : NewMonoBehaviour
     {
         
     }
+    private void FixedUpdate()
+    {
+        LookAtNearestTarget();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("in" + other.transform.parent.name);
-            _listEnemy.Add(other.gameObject);
+            _listEnemy.Add(other.gameObject.transform);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -34,8 +40,28 @@ public class TowerBehaviour : NewMonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("out"+other.transform.parent.name);
-            _listEnemy.Remove(other.gameObject);
+            _listEnemy.Remove(other.gameObject.transform);
         }
+    }
+    void LookAtNearestTarget()
+    {
+       Invoke(nameof(LookAtNearestTarget),1f);
+        float thisNearest = Mathf.Infinity;
+        if(_listEnemy.Count == 0) {
+            _thisTowerCheck = null;
+            return;
+        }
+            
+        foreach (Transform child in _listEnemy)
+        { float distance = Vector3.Distance(child.transform.position, this.transform.position);
+            if (distance < thisNearest)
+            {
+                Debug.Log("take enemy");
+                thisNearest = distance;
+                _thisTowerCheck = child.GetComponent<TowerCheck>();
+            }
+        }
+
     }
     protected override void LoadInReset()
     {
@@ -52,7 +78,7 @@ public class TowerBehaviour : NewMonoBehaviour
     void LoadSphereCollider()
     {
         sphereCollider = GetComponent<SphereCollider>();
-        sphereCollider.radius = radius;
+        sphereCollider.radius = 5f;
         sphereCollider.isTrigger = true;
 
     }

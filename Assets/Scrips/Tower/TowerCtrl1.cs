@@ -3,9 +3,13 @@ using UnityEngine;
 public class TowerCtrl : NewMonoBehaviour
 {
     
-    [SerializeField] Transform _model;
+    [SerializeField] Transform _model, _rotate, _firePoint;
     public Transform Model => _model;
-
+    public Transform Rotate => _rotate;
+    [SerializeField]
+    TowerBehaviour _targetEnemy;
+    public TowerBehaviour TowerBehaviour => _targetEnemy;
+    public Transform FirePoint => _firePoint;
     void Start()
     {
     }
@@ -24,6 +28,9 @@ public class TowerCtrl : NewMonoBehaviour
     void LoadModel()
     {
         _model = this.transform.GetChild(0).transform;
+        _rotate = _model.Find("MGMain");
+        _targetEnemy = this.transform.GetComponentInChildren<TowerBehaviour>();
+        _firePoint = this._rotate.Find("Fire");
 
     }
     
