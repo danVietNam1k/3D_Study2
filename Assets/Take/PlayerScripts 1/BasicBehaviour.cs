@@ -328,7 +328,7 @@ public class BasicBehaviour : MonoBehaviour
 
 // This is the base class for all player behaviours, any custom behaviour must inherit from this.
 // Contains references to local components that may differ according to the behaviour itself.
-public abstract class GenericBehaviour : MonoBehaviour
+public abstract class GenericBehaviour : PlayerCtrAbstract
 {
 	//protected Animator anim;                       // Reference to the Animator component.
 	protected int speedFloat;                      // Speed parameter on the Animator.

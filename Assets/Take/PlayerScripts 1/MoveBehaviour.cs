@@ -137,7 +137,7 @@ public class MoveBehaviour : GenericBehaviour
 		behaviourManager.GetRigidBody.linearVelocity = horizontalVelocity;
 	}
 
-	// Rotate the player to match correct orientation, according to camera and key pressed.
+	// RotateHeadGunMachine the player to match correct orientation, according to camera and key pressed.
 	Vector3 Rotating(float horizontal, float vertical)
 	{
 		// Get camera forward direction, without vertical component.

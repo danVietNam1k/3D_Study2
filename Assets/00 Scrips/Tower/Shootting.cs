@@ -51,14 +51,14 @@ public class Shootting : TowerAbstract
             if (child.activeSelf)
                 continue;          
                 child.transform.position = FirePoint().position;
-                child.transform.rotation = this.TowerCtrl.Rotate.rotation;
+                child.transform.rotation = this.TowerCtrl.RotateHeadGunMachine.rotation;
                 child.SetActive(true);
                 return child;
                      
         }
         GameObject Bullet = Instantiate(_bullet,this.transform);
         Bullet.transform.position = FirePoint().position;
-        Bullet.transform.rotation = this.TowerCtrl.Rotate.rotation;
+        Bullet.transform.rotation = this.TowerCtrl.RotateHeadGunMachine.rotation;
         _listBullet.Add(Bullet);
         return Bullet;
     }

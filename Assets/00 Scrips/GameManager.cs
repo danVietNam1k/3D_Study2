@@ -1,23 +1,15 @@
 using UnityEngine;
 
-public class GameManager : NewMonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private static GameManager instance;
-    public static GameManager Instance => instance;
+   
 
     [SerializeField] Transform _enemyManager, _pathsManager;
     public Transform EnemyManager => _enemyManager;
     public Transform PathsManager => _pathsManager;
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        if (this.gameObject.GetInstanceID() != GameManager.Instance.gameObject.GetInstanceID())
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
     }
     protected override void LoadInReset()
     {

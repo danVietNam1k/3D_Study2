@@ -27,12 +27,12 @@ public class LookAtTarget : TowerAbstract
         Vector3 taget = this.TowerCtrl.TowerBehaviour.TowerCheck.transform.position;
         Vector3 directionToTarget = taget - this.transform.position;
         Vector3 newDrection = Vector3.RotateTowards(
-            this.TowerCtrl.Rotate.forward,
+            this.TowerCtrl.RotateHeadGunMachine.forward,
             directionToTarget,
             _rotateSpeed * Time.fixedDeltaTime, 
             0f
             );
-        this.TowerCtrl.Rotate.rotation = Quaternion.LookRotation(newDrection);
-        //this.TowerCtrl.Rotate.LookAt(towerBehaviour.TowerCheck.transform.position);
+        this.TowerCtrl.RotateHeadGunMachine.rotation = Quaternion.LookRotation(newDrection);
+        //this.TowerCtrl.RotateHeadGunMachine.LookAt(towerBehaviour.TowerCheck.transform.position);
     }
 }

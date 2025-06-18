@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Animations.Rigging;
 
 // AimBehaviour inherits from GenericBehaviour. This class corresponds to aim and strafe behaviour.
 public class AimBehaviourBasic : GenericBehaviour
@@ -9,29 +10,35 @@ public class AimBehaviourBasic : GenericBehaviour
 	public float aimTurnSmoothing = 0.15f;                                // Speed of turn response when aiming to match camera facing.
 	public Vector3 aimPivotOffset = new Vector3(0.5f, 1.2f,  0f);         // Offset to repoint the camera when aiming.
 	public Vector3 aimCamOffset   = new Vector3(0f, 0.4f, -0.7f);         // Offset to relocate the camera when aiming.
-
+	Rig _rig;
+	[SerializeField] float _speedRigAnim = 10f;
+	[SerializeField] bool _useAnimeRig=true;
 	private int aimBool;                                                  // Animator variable related to aiming.
 	private bool aim;                                                     // Boolean to determine whether or not the player is aiming.
-
+	bool _stateAiming = false;
 	// Start is always called after any Awake functions.
 	void Start ()
 	{
 		// Set up the references.
 		aimBool = Animator.StringToHash("Aim");
-	}
+		_rig = this.PlayerCtrl.Rigging.GetComponent<Rig>();
+    }
 
 	// Update is used to set features regardless the active behaviour.
 	void Update ()
-	{
-		// Activate/deactivate aim by input.
-		if (Input.GetAxisRaw(aimButton) != 0 && !aim)
+	{	if(_useAnimeRig)
+		AnimRig();
+        // Activate/deactivate aim by input.
+        if (Input.GetAxisRaw(CONSTANT.aimButton) != 0 && !aim)
 		{
 			StartCoroutine(ToggleAimOn());
-		}
+            _stateAiming =true;
+        }
 		else if (aim && Input.GetAxisRaw(aimButton) == 0)
 		{
 			StartCoroutine(ToggleAimOff());
-		}
+            _stateAiming = false;
+        }
 
 		// No sprinting while aiming.
 		canSprint = !aim;
@@ -46,9 +53,20 @@ public class AimBehaviourBasic : GenericBehaviour
 		// Set aim boolean on the Animator Controller.
 		behaviourManager.GetAnim.SetBool (aimBool, aim);
 	}
+	public bool CheckAiming()
+	{
+		return _stateAiming;
+	}
+	void AnimRig()
+	{
+      if  (Input.GetAxisRaw(aimButton) != 0)
+            _rig.weight += Time.deltaTime * _speedRigAnim;
+        else 
+			_rig.weight -= Time.deltaTime * _speedRigAnim;
+    }
 
-	// Co-routine to start aiming mode with delay.
-	private IEnumerator ToggleAimOn()
+    // Co-routine to start aiming mode with delay.
+    private IEnumerator ToggleAimOn()
 	{
 		yield return new WaitForEndOfFrame();
 		// Aiming is not possible.
@@ -58,7 +76,7 @@ public class AimBehaviourBasic : GenericBehaviour
 		// Start aiming.
 		else
 		{
-			aim = true;
+            aim = true;
 			int signal = 1;
 			aimCamOffset.x = Mathf.Abs(aimCamOffset.x) * signal;
 			aimPivotOffset.x = Mathf.Abs(aimPivotOffset.x) * signal;
@@ -72,7 +90,7 @@ public class AimBehaviourBasic : GenericBehaviour
 	// Co-routine to end aiming mode with delay.
 	private IEnumerator ToggleAimOff()
 	{
-		aim = false;
+        aim = false;
 		yield return new WaitForSeconds(0.1f);
 		behaviourManager.GetCamScript.ResetTargetOffsets();
 		behaviourManager.GetCamScript.ResetMaxVerticalAngle();
@@ -101,7 +119,7 @@ public class AimBehaviourBasic : GenericBehaviour
 		Rotating();
 	}
 
-	// Rotate the player to match correct orientation, according to camera.
+	// RotateHeadGunMachine the player to match correct orientation, according to camera.
 	void Rotating()
 	{
 		Vector3 forward = behaviourManager.playerCamera.TransformDirection(Vector3.forward);
@@ -114,7 +132,7 @@ public class AimBehaviourBasic : GenericBehaviour
 
 		float minSpeed = Quaternion.Angle(transform.rotation, targetRotation) * aimTurnSmoothing;
 
-		// Rotate entire player to face camera.
+		// RotateHeadGunMachine entire player to face camera.
 		behaviourManager.SetLastDirection(forward);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, minSpeed * Time.deltaTime);
 

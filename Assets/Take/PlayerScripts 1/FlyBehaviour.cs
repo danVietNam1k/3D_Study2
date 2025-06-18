@@ -86,7 +86,7 @@ public class FlyBehaviour : GenericBehaviour
 		behaviourManager.GetRigidBody.AddForce(direction * (flySpeed * 100 * (behaviourManager.IsSprinting() ? sprintFactor : 1)), ForceMode.Acceleration);
 	}
 
-	// Rotate the player to match correct orientation, according to camera and key pressed.
+	// RotateHeadGunMachine the player to match correct orientation, according to camera and key pressed.
 	Vector3 Rotating(float horizontal, float vertical)
 	{
 		Vector3 forward = behaviourManager.playerCamera.TransformDirection(Vector3.forward);
@@ -98,7 +98,7 @@ public class FlyBehaviour : GenericBehaviour
 		// Calculate target direction based on camera forward and direction key.
 		Vector3 targetDirection = forward * vertical + right * horizontal;
 
-		// Rotate the player to the correct fly position.
+		// RotateHeadGunMachine the player to the correct fly position.
 		if ((behaviourManager.IsMoving() && targetDirection != Vector3.zero))
 		{
 			Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
@@ -112,7 +112,7 @@ public class FlyBehaviour : GenericBehaviour
 		// Player is flying and idle?
 		if (!(Mathf.Abs(horizontal) > 0.2 || Mathf.Abs(vertical) > 0.2))
 		{
-			// Rotate the player to stand position.
+			// RotateHeadGunMachine the player to stand position.
 			behaviourManager.Repositioning();
 			// Set collider direction to vertical.
 			col.direction = 1;
