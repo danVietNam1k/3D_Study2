@@ -14,11 +14,7 @@ public class Shootting : TowerAbstract
         Shooting();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     protected override void LoadInReset()
     {
         base.LoadInReset();
@@ -33,7 +29,8 @@ public class Shootting : TowerAbstract
         Invoke(nameof(Shooting), _speedFire);
         if (this.TowerCtrl.TowerBehaviour.TowerCheck == null) return;
         Debug.Log("Shoot");
-        bullet();
+       
+        this.TowerCtrl.BulletManager.Bullet(_bullet, FirePoint(), this.TowerCtrl.RotateHeadGunMachine);
     }
     Transform FirePoint()
     {

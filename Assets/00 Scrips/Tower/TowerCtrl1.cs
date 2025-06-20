@@ -8,6 +8,8 @@ public class TowerCtrl : NewMonoBehaviour
     public Transform RotateHeadGunMachine => _rotateHeadGunMachine;
     [SerializeField]
     TowerBehaviour _targetEnemy;
+    [SerializeField] BulletManager _bulletManager;
+    public BulletManager BulletManager => _bulletManager;
     public TowerBehaviour TowerBehaviour => _targetEnemy;
     public Transform FirePoint => _firePoint;
     void Start()
@@ -31,7 +33,9 @@ public class TowerCtrl : NewMonoBehaviour
         _rotateHeadGunMachine = _model.Find("MGMain");
         _targetEnemy = this.transform.GetComponentInChildren<TowerBehaviour>();
         _firePoint = this._rotateHeadGunMachine.Find("Fire");
+        _bulletManager = GameObject.FindFirstObjectByType<BulletManager>();
+
 
     }
-    
+
 }

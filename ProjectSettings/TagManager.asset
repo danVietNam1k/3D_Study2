@@ -18,9 +18,9 @@ TagManager:
   - Bullet
   - Gun
   - Check
-  - 
-  - 
-  - 
+  - TargetFirePlayer
+  - HeadEnemy
+  - BodyEnemy
   - 
   - 
   - 

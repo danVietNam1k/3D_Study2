@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffdc82522ca5634aa36d4bf00dcb13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 25
-  _dameBodyshot: 10
+  _speed: 100
+  _dameBodyshot: 20
   _dameHeadShot: 50
 --- !u!33 &2948301119771098291
 MeshFilter:
@@ -268,4 +268,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

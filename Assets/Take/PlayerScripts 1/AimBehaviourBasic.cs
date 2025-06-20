@@ -28,10 +28,12 @@ public class AimBehaviourBasic : GenericBehaviour
 	void Update ()
 	{	if(_useAnimeRig)
 		AnimRig();
+		//LookingTargerAim();
         // Activate/deactivate aim by input.
         if (Input.GetAxisRaw(CONSTANT.aimButton) != 0 && !aim)
 		{
 			StartCoroutine(ToggleAimOn());
+			
             _stateAiming =true;
         }
 		else if (aim && Input.GetAxisRaw(aimButton) == 0)
@@ -51,9 +53,17 @@ public class AimBehaviourBasic : GenericBehaviour
 		}
 
 		// Set aim boolean on the Animator Controller.
+		
 		behaviourManager.GetAnim.SetBool (aimBool, aim);
+        
+
+    }
+	void LookingTargerAim()
+    {
+		if(_stateAiming)
+		this.transform.rotation = this.GetComponent<PlayerCtrl>().MainCam.rotation;
 	}
-	public bool CheckAiming()
+    public bool CheckAiming()
 	{
 		return _stateAiming;
 	}
