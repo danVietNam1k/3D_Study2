@@ -12,15 +12,6 @@ public class TowerCtrl : NewMonoBehaviour
     public BulletManager BulletManager => _bulletManager;
     public TowerBehaviour TowerBehaviour => _targetEnemy;
     public Transform FirePoint => _firePoint;
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     protected override void LoadInReset()
     {
         base.LoadInReset();

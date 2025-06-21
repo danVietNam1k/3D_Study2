@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class AimTarget : PlayerCtrAbstract
 {
-    //protected Vector3 maxDistance = new Vector3(0, 0, 50f);
-    //[SerializeField] float _maxDistanceRay = 100f;
-    //[SerializeField] LayerMask _laserMask = -1;
+    protected Vector3 maxDistance = new Vector3(0, 0, 50f);
+    [SerializeField] float _maxDistanceRay = 100f;
+    [SerializeField] LayerMask _laserMask = -1;
     [SerializeField] Transform _camera;
     [SerializeField] Transform _player;
 
@@ -22,8 +22,8 @@ public class AimTarget : PlayerCtrAbstract
     protected virtual void Pointing()
     {
 
-        //Vector3 screenCentrer = new Vector3(Screen.width / 2f, Screen.height / 2,0);
-        //Ray rayFromCenter = Camera.main.ScreenPointToRay(screenCentrer);
+        Vector3 screenCentrer = new Vector3(Screen.width / 2f, Screen.height / 2, 0);
+        Ray rayFromCenter = Camera.main.ScreenPointToRay(screenCentrer);
         //if (Physics.Raycast(rayFromCenter, out RaycastHit hit, _maxDistanceRay, _laserMask))
         //{
         //    this.transform.position = hit.point;
@@ -39,11 +39,19 @@ public class AimTarget : PlayerCtrAbstract
         Vector3 player = _player.position + _player.transform.forward * 20f;
         Vector3 cam = _camera.position + _camera.transform.forward * 20f;
         
-        if (this.PlayerCtrl.PlayerShooting.CheckisFire()){
-            this.transform.position = cam;
-            return;
+        
+        if (!this.PlayerCtrl.PlayerShooting.CheckisFire()){
+            this.transform.position = new Vector3(player.x, cam.y, player.z);
+            return;           
         }
-        this.transform.position = new Vector3(player.x, cam.y, player.z);
+        if (Physics.Raycast(rayFromCenter, out RaycastHit hit, _maxDistanceRay, _laserMask))
+        {
+            this.transform.position = hit.point;
+
+        }
+        else
+            this.transform.position = cam;
+
 
 
 
