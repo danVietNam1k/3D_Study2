@@ -17,7 +17,6 @@ public class BulletManager : Singleton<BulletManager>
             child.transform.rotation = thisRotate.rotation;
             child.SetActive(true);
             return child;
-
         }
         GameObject obj = Instantiate(prefab, this.transform);
         obj.SetActive(false);

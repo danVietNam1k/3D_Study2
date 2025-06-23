@@ -1,29 +1,27 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
-
-public abstract class ObjPooling<T> : NewMonoBehaviour where T : NewMonoBehaviour
+using UnityEngine.Audio;
+public class PoolSound : NewMonoBehaviour
 {
     [SerializeField] List<GameObject> _objPooling = new();
-    public GameObject Bullet(GameObject prefab, Transform thisPosition, Transform thisRotate)
+    public GameObject Audio(GameObject prefab, Transform thisPosition)
     {
         foreach (GameObject child in _objPooling)
         {
             if (child.activeSelf)
                 continue;
             child.transform.position = thisPosition.position;
-            child.transform.rotation = thisRotate.rotation;
             child.SetActive(true);
+            child.GetComponent<AudioSource>().Play();
             return child;
 
         }
         GameObject obj = Instantiate(prefab, this.transform);
         obj.SetActive(false);
         obj.transform.position = thisPosition.position;
-        obj.transform.rotation = thisRotate.rotation;
         _objPooling.Add(obj);
         obj.SetActive(true);
+        obj.GetComponent<AudioSource>().Play();
         return obj;
     }
 }
