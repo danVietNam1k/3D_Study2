@@ -8,18 +8,16 @@ public class Bullet : MonoBehaviour
     Rigidbody rb;
     [SerializeField] int _dameBodyshot = 10, _dameHeadShot = 50;
     TrailRenderer tr;
-    PoolSound _poolSound;
     private void Awake()
     {   
         rb = GetComponent<Rigidbody>();
         tr = GetComponent<TrailRenderer>();
-        
     }
     private void OnEnable()
     {
         ResetComponent();
         StartCoroutine(TimeActive());
-        SoundFire();
+    
     }
 
     private void FixedUpdate()
@@ -49,17 +47,11 @@ public class Bullet : MonoBehaviour
         {
             StateEnemy stateEnemy = other.transform.parent.Find("StateEnemy").GetComponent<StateEnemy>();
             stateEnemy.TakeDame(_dameBodyshot);
-        }
-        
+        } 
     }
     private void ResetComponent()
     {
         tr.Clear();
-    }
-    void SoundFire()
-    {
-        _poolSound = GameObject.FindFirstObjectByType<PoolSound>();
-        _poolSound.Audio(GameObject.Find("SoundFire"), this.transform);
     }
 
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Serialization;
 
 // MoveBehaviour inherits from GenericBehaviour. This class corresponds to basic walk and run behaviour, it is the default behaviour.
@@ -73,7 +75,8 @@ public class MoveBehaviour : GenericBehaviour
 				float velocity = 2f * Mathf.Abs(Physics.gravity.y) * jumpHeight;
 				velocity = Mathf.Sqrt(velocity);
 				behaviourManager.GetRigidBody.AddForce(Vector3.up * velocity, ForceMode.VelocityChange);
-			}
+
+            }
 		}
 		// Is already jumping?
 		else if (behaviourManager.GetAnim.GetBool(jumpBool))
@@ -97,9 +100,8 @@ public class MoveBehaviour : GenericBehaviour
 			}
 		}
 	}
-
-	// Deal with the basic player movement
-	void MovementManagement(float horizontal, float vertical)
+    // Deal with the basic player movement
+    void MovementManagement(float horizontal, float vertical)
 	{
 		// On ground, obey gravity.
 		if (behaviourManager.IsGrounded())
@@ -124,10 +126,12 @@ public class MoveBehaviour : GenericBehaviour
 		if (behaviourManager.IsSprinting())
 		{
 			speed = sprintSpeed;
-		}
+            
+        }
 
 		behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
-	}
+        
+    }
 
 	// Remove vertical rigidbody velocity.
 	private void RemoveVerticalVelocity()

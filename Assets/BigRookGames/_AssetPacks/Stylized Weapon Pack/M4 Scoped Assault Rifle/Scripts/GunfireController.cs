@@ -4,7 +4,7 @@ namespace BigRookGames.Weapons
 {
     public class GunfireController : MonoBehaviour
     {
-        // --- Audio ---
+        // --- AudioPool ---
         public AudioClip GunShotClip;
         public AudioSource source;
         public Vector2 audioPitch = new Vector2(.9f, 1.1f);
@@ -91,7 +91,7 @@ namespace BigRookGames.Weapons
                 Invoke("ReEnableDisabledProjectile", 3);
             }
 
-            // --- Handle Audio ---
+            // --- Handle AudioPool ---
             if (source != null)
             {
                 // --- Sometimes the source is not attached to the weapon for easy instantiation on quick firing weapons like machineguns, 

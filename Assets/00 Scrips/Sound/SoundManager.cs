@@ -1,20 +1,16 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
+using System;
+
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 public class SoundManager : NewMonoBehaviour
 {
     private static SoundManager instance;
     public static SoundManager Instance => instance;
-
-    [SerializeField] List<Transform> _ListSoundSfx , _ListMusicBG;
-    
-    public List<Transform> ListSoundSfx => _ListSoundSfx;
-    [SerializeField] Transform _musicBG, _sfxSound, _poolSound;
-    public Transform MusicBH => _musicBG;
-    public Transform SfxSound => _sfxSound;
-    public Transform PoolSound => _poolSound;
+    public PoolSound PoolSound;
+    public SoundCtrl SoundCtrl;
     private void Awake()
     {
         if (instance == null)
@@ -31,35 +27,12 @@ public class SoundManager : NewMonoBehaviour
     protected override void LoadInReset()
     {
         base.LoadInReset();
-        LoadChild();
-        this.LoadListAudio();
+        this.PoolSound = this.transform.Find("PoolSound").GetComponent<PoolSound>();
+        SoundCtrl = this.transform.Find("SoundCtrl").GetComponent<SoundCtrl>();
     }
-
-    void LoadChild()
+    public void PlayAudio(Transform thisPosition, AudioClip audioClip, float volume = 1)
     {
-        _musicBG = this.transform.Find("MusicBG");
-        _sfxSound = this.transform.Find("SfxSound");
-        _poolSound = this.transform.Find("PoolSound");
+        PoolSound.PoolAudio(thisPosition, audioClip, volume);
     }
-
-    void LoadListAudio()
-    {
-        LoadMusicBH();
-        LoadSFX();
-    }
-    void LoadMusicBH()
-    {
-        foreach (Transform audio in _musicBG)
-            _ListMusicBG.Add(audio);
-    }
-    void LoadSFX()
-    {
-        foreach (Transform sound in _sfxSound)
-            _ListSoundSfx.Add(sound);
     
-    }
-    void Update()
-    {
-        
-    }
 }

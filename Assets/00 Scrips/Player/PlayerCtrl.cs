@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class PlayerCtrl : NewMonoBehaviour
-{
+{   public static PlayerCtrl Instance { get; private set; }
     [SerializeField] InputManager _inputManager;
     public InputManager InputManager => _inputManager;
     [SerializeField] BulletManager _bulletManager;
@@ -17,6 +18,10 @@ public class PlayerCtrl : NewMonoBehaviour
     public Transform MainCam => _mainCam;
     [SerializeField] PlayerShooting _playerShooting;
     public PlayerShooting PlayerShooting => _playerShooting;
+    private void Awake()
+    {
+        Instance = this;
+    }
     protected override void LoadInReset()
     {
         base.LoadInReset();
