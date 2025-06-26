@@ -1,7 +1,7 @@
 using UnityEngine;
     public enum SoundOfPlayer
     {
-       
+        None,
         Shoot,
         Walk,
         Run,
@@ -11,7 +11,7 @@ using UnityEngine;
 
     public enum SoundOfEnemy
     {
-
+    None,
         Dead,
         walk,
         Hurt,
@@ -19,6 +19,7 @@ using UnityEngine;
     }
     public enum SoundBG
     {
+         None,
         Defaut,
 
     }

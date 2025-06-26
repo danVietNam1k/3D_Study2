@@ -4,9 +4,10 @@ public class GameManager : Singleton<GameManager>
 {
    
 
-    [SerializeField] Transform _enemyManager, _pathsManager;
+    [SerializeField] Transform _enemyManager, _pathsManager, _player;
     public Transform EnemyManager => _enemyManager;
     public Transform PathsManager => _pathsManager;
+    public Transform Player => _player;
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     {
         _enemyManager = GameObject.Find("EnemyManager").transform;
         _pathsManager = GameObject.Find("PathsManager").transform;
+        _player = GameManager.FindAnyObjectByType<PlayerCtrl>().transform;
 
     }
 

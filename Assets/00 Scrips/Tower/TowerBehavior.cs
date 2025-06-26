@@ -13,6 +13,7 @@ public class TowerBehaviour : NewMonoBehaviour
     [SerializeField] List<Transform> _listEnemy = new();
     [SerializeField] TowerCheck _thisTowerCheck;
     public TowerCheck TowerCheck =>_thisTowerCheck;
+    [SerializeField] LayerMask _layerMask;
     void Start()
     {
         LookAtNearestTarget();
@@ -47,6 +48,7 @@ public class TowerBehaviour : NewMonoBehaviour
         float thisNearest = Mathf.Infinity;
         if(_listEnemy.Count < 1) {
             _thisTowerCheck = null;
+           
             return;
         }
 
@@ -70,7 +72,7 @@ public class TowerBehaviour : NewMonoBehaviour
     {
         Vector3 directionToTarget = obj.transform.position- this.transform.position;    
         float distanceToTarget = directionToTarget.magnitude;
-        if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitInfo, distanceToTarget))
+        if (!Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitInfo, distanceToTarget, _layerMask))
         {
             return false;
         }

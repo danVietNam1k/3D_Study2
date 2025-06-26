@@ -50,6 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad4c773d0f0ea64d821dd751d3b3c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nameSoundOfEnemy: 0
+  _nameSoundOfPlayer: 1
+  _nameSoundBG: 0
+  SoundCtrl: {fileID: 0}
+  SoundManager: {fileID: 0}
 --- !u!114 &417617566136528845
 MonoBehaviour:
   m_ObjectHideFlags: 0

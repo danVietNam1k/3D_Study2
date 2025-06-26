@@ -22,7 +22,7 @@ public class StateEnemy : EnemyAbstract
     }
     public void TakeDame(int TakeDame)
     {
-        Debug.Log("a");
+        //Debug.Log("a");
         this._recieveHp -= TakeDame;
 
         if (_recieveHp <= 0)
