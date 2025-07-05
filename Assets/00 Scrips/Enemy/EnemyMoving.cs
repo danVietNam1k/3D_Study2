@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,15 +8,10 @@ public class EnemyMoving : EnemyAbstract
     [SerializeField] NavMeshAgent _Agent;
     [SerializeField] float _changePoint;
     [SerializeField] Animator _animator;
-    
-    
-    void OnEnable()
+    private void OnEnable()
     {
-        this.GetTarget();
-        
+        GetTarget();
     }
-
-    // Update is called once per frame
     void Update()
     {
         Moving();
@@ -38,15 +34,15 @@ public class EnemyMoving : EnemyAbstract
 
 
     }
-    void TakePathRandom()
+    void TakePathFromSpawn()
     {
-        int ramdom = Random.Range(0, _PathsManager.childCount);
-        _point = _PathsManager.GetChild(ramdom).transform;
+        int point = SpawnEnemyManage.Instance.GivePoint();
+        _point = _PathsManager.GetChild(point).transform;
 
     }
-    void GetTarget()
+    public void GetTarget()
     {
-        TakePathRandom();
+        TakePathFromSpawn();
         _Agent.isStopped = false;
         if (_Agent == null)
         _target = null;
@@ -63,7 +59,6 @@ public class EnemyMoving : EnemyAbstract
             
             _target = _target.GetComponent<PointOnPath>().NextPoint;
         }
-
 
     }
     void Moving()

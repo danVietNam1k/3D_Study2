@@ -37,8 +37,7 @@ public class AimTarget : PlayerCtrAbstract
         //}
 
         Vector3 player = _player.position + _player.transform.forward * 20f;
-        Vector3 cam = _camera.position + _camera.transform.forward * 20f;
-        
+        Vector3 cam =_camera.position + _camera.transform.forward * 20f;
         
         if (!this.PlayerCtrl.PlayerShooting.CheckisFire()){
             this.transform.position = new Vector3(player.x, cam.y, player.z);
